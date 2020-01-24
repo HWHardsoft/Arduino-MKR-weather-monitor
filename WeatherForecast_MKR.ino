@@ -1,7 +1,8 @@
+
 /*
  *  Application note: Weather monitor for ArduiTouch MKR  
  *                    (Arduino MKR 1010 and MKR ENV Shield are needed)
- *  Version 1.0
+ *  Version 1.1
  *  Copyright (C) 2019  Hartmut Wendt  www.zihatec.de
  *  
  *  based on sources of Art Deco Weather Forecast Display: http://www.educ8s.tv  
@@ -21,9 +22,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */   
 
-
 #include <SPI.h>
-#include <WiFi101.h>
+// uncomment the following line for Arduino MKR1000
+// #include <WiFi101.h>
+
+// uncomment the following line for Arduino MKR1010 
+#include <WiFiNINA.h>
+
 
 #include <ArduinoJson.h>
 #include "Adafruit_ILI9341.h"
@@ -47,21 +52,16 @@
 #define TFT_CS   A3
 #define TFT_DC   0
 #define TFT_MOSI 8
-#define TFT_RST  22
 #define TFT_CLK  9
 #define TFT_MISO 10
 #define TFT_LED  A2  
-
-
-#define HAVE_TOUCHPAD
-#define TOUCH_CS A4
-#define TOUCH_IRQ 1
 /*_______End of pin definitions______*/
 
 
 /*______Wifi definitions_______*/
 char* ssid     = "yourssid";      // SSID of local network
 char* password = "yourpassword";   // Password on network
+
 int status = WL_IDLE_STATUS;
 WiFiClient client;
 char servername[]="api.openweathermap.org";  // remote server we will connect to
@@ -85,14 +85,12 @@ extern  unsigned char  cloud[];
 extern  unsigned char  thunder[];
 extern  unsigned char  wind[];
 
-Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC);
 
 
 void setup() {
+  delay(3000);
   Serial.begin(115200);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
   
   // initialize the TFT
   tft.begin();          
