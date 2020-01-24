@@ -98,7 +98,7 @@ void setup() {
   tft.fillScreen(BLACK);// clear screen 
 
   tft.setCursor(70,110);
-  tft.setTextColor(WHITE);
+  tft.setTextColor(WHITE,BLACK);
   tft.setTextSize(2);
   tft.print("Connecting...");
 
@@ -184,9 +184,10 @@ void getMKRENVData()
   Serial.print("Pressure    = ");
   Serial.print(sensor_value);
   Serial.println(" kPa");
- tft.setCursor(160,170);
+  tft.setCursor(160,170);
   tft.setTextSize(2);
   tft.print("Pressure:");
+ 
   tft.setCursor(160,200);
   tft.setTextSize(3);
   tft.print(sensor_value);
@@ -283,23 +284,23 @@ void getWeatherData()
 void printData(String timeString, String temperature, String time, int weatherID)
 {
   tft.setCursor(35,60);
-  tft.setTextColor(WHITE);
+  tft.setTextColor(WHITE,BLACK);
   tft.setTextSize(2);
   tft.print(timeString);
 
   printWeatherIcon(weatherID);
 
   tft.setCursor(27,172);
-  tft.setTextColor(WHITE);
+  tft.setTextColor(WHITE,BLACK);
   tft.setTextSize(2);
   tft.print(temperature);
 
   tft.setCursor(83,170);
-  tft.setTextColor(WHITE);
+  tft.setTextColor(WHITE,BLACK);
   tft.setTextSize(1);
   tft.print("o");
   tft.setCursor(93,172);
-  tft.setTextColor(WHITE);
+  tft.setTextColor(WHITE,BLACK);
   tft.setTextSize(2);
   tft.print("C");
 }
